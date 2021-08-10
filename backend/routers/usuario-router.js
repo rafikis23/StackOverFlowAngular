@@ -4,7 +4,7 @@ var usuario = require('../models/usuario');
 var mongoose = require('mongoose');
 // Obtener los usuarios
 router.get('/', function(req, res){
-    usuario.find({},{_id:true, nombre:true})
+    usuario.find({},{_id:true, nombre:true, urlImagen:true})
     .then((data)=>{
         res.send(data);
         res.end();
@@ -58,6 +58,23 @@ router.get('/preguntasUsuario', function(req, res){
 });
 
 // Agregar un nueva pregunta segun el usuario seleccionado
-
+router.post('/:idUsuario/nuevaPregunta', function(req, res) {
+    usuario.update({
+        _id: mongoose.Types.ObjectId(req.params.idUsuario)
+    }, {
+        $push: {
+            preguntas: {
+                _id: mongoose.Types.ObjectId(),
+                titulo: req.body.titulo
+            }
+        }
+    }).then(resultado => {
+        res.send(resultado);
+        res.end();
+    }).catch(error => {
+        res.send(error);
+        res.end();
+    })
+})
 
 module.exports = router;

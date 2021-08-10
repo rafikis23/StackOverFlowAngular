@@ -1,0 +1,85 @@
+<main class="container mt-5" id="listaPreguntas" style="display: block;">
+    <div class="row">
+      <div class="col-12">
+        <h2>Preguntas Top</h2>
+        <button class="btn btn-outline-warning btn-sm" (click)="modalNuevaPregunta(contentNuevaPregunta)">Nueva Pregunta</button>
+      </div>
+    </div>
+    <!-- Item -->
+    <div class="row question-row" *ngFor="let pregunta of preguntas">
+      <div class="col-md-2 col-lg-1 text-center text-muted small"*ngFor="let detalle of pregunta.preguntas">
+        <div>{{detalle.votos}}</div>
+        <div>Votos</div>
+      </div>
+      <div class="col-md-2 col-lg-1 text-center text-muted small"*ngFor="let detalle of pregunta.preguntas">
+        <div>{{detalle.respuestas.length}}</div>
+        <div>Respuestas</div>
+      </div>
+      <div class="col-md-2 col-lg-1 text-center text-muted small"*ngFor="let detalle of pregunta.preguntas">
+        <div>{{detalle.vistas}}</div>
+        <div>Vistas</div>
+      </div>
+      <div class="col-md-6 col-lg-9" *ngFor="let detalle of pregunta.preguntas">
+        <div>
+          <button class="btn btn-link" (click)="verDetallePregunta(detalle)">{{detalle.titulo}}</button>
+        </div>
+        <div *ngFor="let hash of detalle.hashtags" >
+          <span class="badge badge-warning">{{hash}}</span>
+          <!-- <span class="badge badge-warning">honduras</span>
+          <span class="badge badge-warning">joh</span> -->
+        </div>
+        <div class="float-right">
+          <span class="small text-muted">{{detalle.fecha}}</span>
+          <span class="small user-text">{{pregunta.nombre}}</span>
+          <img src="../assets/{{pregunta.urlImagen}}" class="small-profile-pic">
+        </div>
+      </div>
+    </div>
+    <!-- Fin Itemn -->
+    
+    </main>
+  
+<!--Modal Nueva Pregunta NgBootstrap-->
+<ng-template #contentNuevaPregunta let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title" id="modal-basic-title">Nueva Pregunta</h5>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+            <textarea class="form-control" cols="30" rows="7" placeholder="Respuesta"></textarea>
+            <span class="small text-muted">Etiquetas permitidas: br, pre</span><br>
+            <input class="form-control" placeholder="Hashtags (separadas por coma)">
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-outline-warning">Publicar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+     <!--  <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button> -->
+    </div>
+  </ng-template>
+  <!-- Modal Nueva pregunta -->
+  <div class="modal fade" id="modal-pregunta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-12">
+              <h5>Nueva Pregunta</h5>
+              <textarea class="form-control" cols="30" rows="7" placeholder="Respuesta"></textarea>
+              <span class="small text-muted">Etiquetas permitidas: br, pre</span><br>
+              <input class="form-control" placeholder="Hashtags (separadas por coma)">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-outline-warning">Publicar</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
