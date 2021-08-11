@@ -14,15 +14,15 @@
   </div>
 </nav>
 <!--lista de Preguntas-->
-  <div [ngClass]="{'visible':regionVisible != 'detallePregunta', 'no-visible':regionVisible == 'detallePregunta'}" >
-    <app-lista-preguntas  (onVerDetallePregunta)="verDetalle($event)"></app-lista-preguntas>
+  <div [ngClass]="{'visible':regionVisible == 'listadoPreguntas', 'no-visible':regionVisible == 'detallePregunta'}" >
+    <app-lista-preguntas (onGuardarPregunta)="verTitulo($event)"  (onVerDetallePregunta)="verDetalle($event)" (onVerDetallePregunta)="verRespuesta($event)" #listadoPregunta></app-lista-preguntas>
   </div>
   
 
 
 <!--detalle de Pregunta-->
  <div [ngClass]="{'visible':regionVisible == 'detallePregunta', 'no-visible':regionVisible != 'detallePregunta'}">
-  <app-detalle-preguntas (onVerPregunta)="verPregunta()" #detallePregunta></app-detalle-preguntas>
+  <app-detalle-preguntas (onVerPregunta)="verPregunta($event)" #detallePregunta></app-detalle-preguntas>
  </div> 
   
 

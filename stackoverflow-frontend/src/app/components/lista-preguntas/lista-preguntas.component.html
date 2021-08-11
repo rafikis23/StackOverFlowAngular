@@ -43,22 +43,19 @@
 <ng-template #contentNuevaPregunta let-modal>
     <div class="modal-header">
       <h5 class="modal-title" id="modal-basic-title">Nueva Pregunta</h5>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
     </div>
     <div class="modal-body">
       <form>
         <div class="form-group">
-            <textarea class="form-control" cols="30" rows="7" placeholder="Respuesta"></textarea>
-            <span class="small text-muted">Etiquetas permitidas: br, pre</span><br>
-            <input class="form-control" placeholder="Hashtags (separadas por coma)">
+            <textarea [(ngModel)]="tituloPregunta" [ngModelOptions]="{standalone: true}" class="form-control" cols="30" rows="3" placeholder="Titulo de Pregunta"></textarea>
+            <!-- <span class="small text-muted">Etiquetas permitidas: br, pre</span><br>
+            <input class="form-control" placeholder="Hashtags (separadas por coma)"> -->
         </div>
       </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-outline-warning">Publicar</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button class="btn btn-outline-warning" (click)="guardarPregunta()">Publicar</button>
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancelar</button>
      <!--  <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button> -->
     </div>
   </ng-template>

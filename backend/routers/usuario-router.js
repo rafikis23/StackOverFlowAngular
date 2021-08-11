@@ -16,6 +16,19 @@ router.get('/', function(req, res){
     })
 });
 
+// Obtener las preguntas de un usuario
+router.get('/:idUsuario/listadoPreguntas', function(req, res){
+    usuario.find({_id: req.params.idUsuario}, {"preguntas":true})
+    .then(data=>{
+        res.send(data[0]);
+        res.end();
+    })
+    .catch(error=>{
+        res.send(error);
+        res.end();
+    })
+
+});
 //Obtener las preguntas de todos los usuarios
 router.get('/preguntasUsuario', function(req, res){
     usuario.aggregate([

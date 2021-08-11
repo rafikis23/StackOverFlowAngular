@@ -8,8 +8,11 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
   styleUrls: ['./lista-preguntas.component.css']
 })
 export class ListaPreguntasComponent implements OnInit {
-  @Output() onVerDetallePregunta = new EventEmitter(); 
+  @Output() onVerDetallePregunta = new EventEmitter();
+  @Output() onGuardarPregunta = new EventEmitter(); 
   preguntas:any = [];
+  tituloPregunta: string = '';
+  usuarioId:any;
   constructor(
     private modalPreguntas: NgbModal,
     private usuariosService: UsuariosService
@@ -24,6 +27,28 @@ export class ListaPreguntasComponent implements OnInit {
       error=>console.log(error)
     );
   }
+  guardarUsuarioId(usuarioId){
+    this.usuarioId = usuarioId;
+    
+  }
+  guardarPregunta(){
+    console.log('Probando el servicio', this.tituloPregunta);
+    console.log('El usuario es', this.usuarioId);
+    this.usuariosService.guardarTituloPregunta(this.usuarioId, this.tituloPregunta).subscribe(
+      res=>{
+        console.log(res);
+        if(res.ok === 1){
+          this.modalPreguntas.dismissAll();
+        }
+
+      },
+      error=> console.log(error)
+    )
+  }
+  
+  enviarTitulo(){
+    this.onGuardarPregunta.emit(this.tituloPregunta);
+  }
   verDetallePregunta(detalle){
     this.onVerDetallePregunta.emit(detalle._id);
     console.log('El id del detalle es', detalle._id)
@@ -31,6 +56,7 @@ export class ListaPreguntasComponent implements OnInit {
 
   modalNuevaPregunta(modal){
     this.modalPreguntas.open(
+      modal,
       {
         size: 'md'
       }

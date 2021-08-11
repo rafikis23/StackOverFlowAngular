@@ -70,7 +70,7 @@ router.get('/:idPregunta/respuestas', function(req, res){
         }
     ])
     .then((data)=>{
-        res.send(data);
+        res.send(data[0]);
         res.end();
     })
     .catch((error)=>{

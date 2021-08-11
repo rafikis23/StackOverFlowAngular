@@ -1,14 +1,14 @@
 <main class="container mt-5" id="detallePregunta" >
     <div class="row">
       <div class="col-12">
-        <h2><svg class="arrow" (click)="verPreguntas()" width="36" height="36" viewBox="0 0 36 36"><path d="M16,0,16,32,0,16Z"/></svg> {{detalle.titulo}}</h2>
+        <h2><svg class="arrow" (click)="verPreguntas(detalle)" width="36" height="36" viewBox="0 0 36 36"><path d="M16,0,16,32,0,16Z"/></svg> {{detalle.titulo}}</h2>
       </div>
     </div>
     <div class="row question">
       <div class="col-1 text-center">
-        <div><svg class="arrow" onclick="votar(1)" width="36" height="36" viewBox="0 0 36 36"><path d="M2 26h32L18 10 2 26z"></path></svg></div>
-        <div class="h4 text-muted m-0">45</div>
-        <div><svg class="arrow" onclick="votar(-1)" width="36" height="36" viewBox="0 0 36 36"><path d="M2 10h32L18 26 2 10z"></path></svg></div>
+        <div><svg class="arrow" (click)="votarMas()" width="36" height="36" viewBox="0 0 36 36"><path d="M2 26h32L18 10 2 26z"></path></svg></div>
+        <div class="h4 text-muted m-0">{{detalle.votos}}</div>
+        <div><svg class="arrow" (click)="votarMenos()" width="36" height="36" viewBox="0 0 36 36"><path d="M2 10h32L18 26 2 10z"></path></svg></div>
       </div>
       <div class="col-10">
         {{detalle.descripcion}}.<br>
@@ -33,26 +33,25 @@
       <h5>2 Respuestas</h5>
     </div>
     <!-- Respuesta -->
-    <div class="row answer">
+    <div class="row answer" *ngFor="let respuesta of respuestas">
       <div class="col-1 text-center">
-        <div><svg class="arrow" onclick="votar(1)" width="36" height="36" viewBox="0 0 36 36"><path d="M2 26h32L18 10 2 26z"></path></svg></div>
-        <div class="h4 text-muted m-0">105</div>
-        <div><svg class="arrow" onclick="votar(-1)" width="36" height="36" viewBox="0 0 36 36"><path d="M2 10h32L18 26 2 10z"></path></svg></div>
+        <div><svg class="arrow" (click)="votarRes(respuesta.votos)" width="36" height="36" viewBox="0 0 36 36"><path d="M2 26h32L18 10 2 26z"></path></svg></div>
+        <div class="h4 text-muted m-0">{{respuesta.votos}}</div>
+        <div><svg class="arrow" (click)="votarMenosRes(respuesta.votos)" width="36" height="36" viewBox="0 0 36 36"><path d="M2 10h32L18 26 2 10z"></path></svg></div>
       </div>
       <div class="col-10">
-        In version 37 you need to do this:
-        <pre>///< reference path="typings/angular2/http.d.ts"/ ><br>import Http from "angular2/http";<br>And run this tsd command:<br>tsd install angular2/http</pre>
+        {{respuesta.descripcion}}
       </div>
-      <div class="col-12">
+      <div class="col-12" *ngFor="let usuario of usuariosRespuesta">
         <div class="float-right text-center user-card">
-          <div class="text-muted small">12/12/2012</div>
-          <div><img src="../assets/images/profile-pics/picoro.jpg" class="small-profile-pic mr-2">Picoro</div>
+          <div class="text-muted small">{{respuesta.fecha}}</div>
+          <div><img src="../assets/{{usuario.urlImagen}}" class="small-profile-pic mr-2">{{usuario.nombre}}</div>
         </div>
       </div>
     </div>
     <!-- Fin Respuesta -->
     <!-- Respuesta -->
-    <div class="row answer">
+    <!-- <div class="row answer">
       <div class="col-1 text-center">
         <div><svg class="arrow" onclick="votar(1)" width="36" height="36" viewBox="0 0 36 36"><path d="M2 26h32L18 10 2 26z"></path></svg></div>
         <div class="h4 text-muted m-0">10</div>
@@ -68,7 +67,7 @@
           <div><img src="../assets/images/profile-pics/roshi.jpg" class="small-profile-pic mr-2">Maestro Roshi</div>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- Fin Respuesta -->
   
     <!-- Formulario nueva respuesta -->
